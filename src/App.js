@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import {React,useState} from 'react';
+import Expense from './components/Expense/Expense';
+import NewExpense from './components/NewExpense/NewExpense';
+import ExpenseData from "./ExpenseData"
+import swal from 'sweetalert';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+
+const App =()=>
+{
+
+  const [ExpenseState, setExpense] = useState(ExpenseData)
+
+  const create = (newExpense) =>
+  {
+    // setExpense([newExpense,...ExpenseState]);
+    setExpense((prevExpense)=>
+    {
+      return [newExpense,...prevExpense];
+    })
+    swal("Success!", "Your word added Successfully", "success");    
+  }
+  
+  return(<div>
+    <h1 style={{textAlign:'center'}}>
+      Expense Tracker
+    </h1>
+    <NewExpense create={create}/>
+    <Expense ExpenseState={ExpenseState}/>
+  </div>
+    
   );
 }
 
-export default App;
+export default App
